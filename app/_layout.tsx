@@ -9,8 +9,13 @@ const RootLayout = () => {
 
   return (
     <Stack screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="(tabs)" />
+      <Stack.Screen name="Index" />
+      <Stack.Screen name="SignInScreen" />
+      <Stack.Screen name="SignUpScreen" />
+      <Stack.Screen name="ImagePickerScreen" />
+      <Stack.Screen name="../components/" />
       <Stack.Screen name="+not-found" />
+      <Stack.Screen name="updateProfileScreen" />
     </Stack>
   );
 };

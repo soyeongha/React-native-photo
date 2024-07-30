@@ -35,12 +35,12 @@ const TabLayout = () => {
         }}
       />
       <Tabs.Screen
-        name="AddScreen"
+        name="SelectPhotosScreen"
         options={{
           title: 'Add',
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon
-              name={focused ? 'home' : 'home-outline'}
+              name={focused ? 'add' : 'add-outline'} //아이콘이름 바꾸기
               color={color}
             />
           ),

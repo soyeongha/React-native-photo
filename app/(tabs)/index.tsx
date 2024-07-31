@@ -22,7 +22,7 @@ const HomeScreen = () => {
       {/** 타이틀 */}
       <View style={styles.topContainer}>
         <Image
-          source={require('../../assets/images/icon2.png')}
+          source={require('../../assets/images/icon2.png')} //얘가 홈화면의 로고이미지
           style={styles.icon}
         />
         <Text style={styles.title}>PlacePhotos</Text>

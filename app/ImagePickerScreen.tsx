@@ -1,6 +1,6 @@
 import HeaderRight from '@/components/HeaderRight';
 import { useNavigation } from '@react-navigation/native';
-import { useEffect, useLayoutEffect, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useState } from 'react';
 import {
   Alert,
   FlatList,
@@ -11,9 +11,12 @@ import {
   useWindowDimensions,
   View,
 } from 'react-native';
-import * as MediaLibray from 'expo-media-library';
+import * as MediaLibray from 'expo-media-library';          
+
+const initialListInfo = {endCursor: '', hasNextPage: true};
 
 const ImagePickerScreen = () => {
+  const [refreshing, setRefreshing] = useState(false);
   const navigation = useNavigation();
   const [status, requestPermission] = MediaLibray.usePermissions();
   const width = useWindowDimensions().width / 3;
@@ -42,18 +45,24 @@ const ImagePickerScreen = () => {
 
   console.log(status);
 
-  const getPhotos = async () => {
+  const getPhotos = useCallback(async () => {
     const options = {
       first: 30,
       SortBy: [MediaLibray.SortBy.creationTime],
     };
+    if (listInfo.endCursor) {
+      options['after'] = listInfo.endCursor;
+    }
+
     if (listInfo.hasNextPage) {
       const { assets, endCursor, hasNextPage } =
         await MediaLibray.getAssetsAsync(options);
       setPhotos((prev) => [...prev, ...assets]);
       setListInfo({ endCursor, hasNextPage });
     }
-  };
+  }, [listInfo.hasNextPage, listInfo.endCursor]);
+
+  console.log(photos.length);
 
   useEffect(() => {
     if (status?.granted) {
@@ -77,6 +86,8 @@ const ImagePickerScreen = () => {
           </Pressable>
         )}
         numColumns={3}
+        onEndReached={getPhotos}
+        onEndReachedThreshold={0.4}
       />
     </View>
   );

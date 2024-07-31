@@ -18,7 +18,7 @@ import { getAuthErrorMessages, signIn } from '../api/auth';
 import { useUserState } from '@/api/UserContext';
 
 // const [, setUser] = useUserState();
-
+//루트 인덱스
 const SignInScreen = () => {
   const passwordRef = useRef();
   const { top, bottom } = useSafeAreaInsets();
